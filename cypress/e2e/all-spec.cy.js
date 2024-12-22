@@ -1,0 +1,7 @@
+import './cartao-spec.cy.js'
+import './categoria-spec.cy.js'
+import './conta-spec.cy.js'
+import './marca-spec.cy.js'
+import './modelo-spec.cy.js'
+import './parametro-spec.cy.js'
+import './socio-spec.cy.js'
