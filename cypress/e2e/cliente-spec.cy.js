@@ -48,7 +48,7 @@ describe('Crud Cliente Spec', () => {
     cy.get('#state').first().should('contain' , 'CEAR')
   })
 
-  it.only('valida email', () => {
+  it('valida email', () => {
     cy.visit(urlNovo)
     preencherFormulario()
     cy.get('#email').clear().type('fulanodetal')
@@ -57,42 +57,60 @@ describe('Crud Cliente Spec', () => {
     cy.get('div').should('contain', 'E-mail inválido.')
   })
 
-  // it('valida salvar', () => {
-  //   cy.visit(urlNovo)
-  //   preencherFormulario()
+  it('valida telefoneFixo', () => {
+    cy.visit(urlNovo)
+    preencherFormulario()
+    cy.get('#telephone').clear().type('859999')
 
-  //   cy.get('button').contains('Salvar').click()
-  //   cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
-  // })
+    cy.get('button').contains('Salvar').click()
+    cy.get('div').should('contain', 'Telefone fixo inválido.')
+  })
 
-  // it('valida buscar', () => {
-  //   buscar()
+  it('valida telefoneCelular', () => {
+    cy.visit(urlNovo)
+    preencherFormulario()
+    cy.get('#cellPhone').clear().type('859999')
 
-  //   cy.get('td').should('contain', 'FULANO DE TAL')
-  // })
+    cy.get('button').contains('Salvar').click()
+    cy.get('div').should('contain', 'Telefone celular inválido.')
+  })
 
-  // it('valida editar', () => {
-  //   buscar()
+  it('valida salvar', () => {
+    cy.visit(urlNovo)
+    preencherFormulario()
+
+    cy.get('button').contains('Salvar').click()
+    cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
+  })
+
+  it('valida buscar', () => {
+    buscar()
+
+    cy.get('td').should('contain', 'FULANO DE TAL')
+  })
+
+  it('valida editar', () => {
+    buscar()
     
-  //   cy.get('td button').last().click()
-  //   cy.get('button').contains('Salvar').click()
-  //   cy.get('div').should('contain', 'Registro atualizado com sucesso.')
-  // })
+    cy.get('td button').last().click()
+    cy.get('button').contains('Salvar').click()
+    cy.get('div').should('contain', 'Registro atualizado com sucesso.')
+  })
 
-  // it('valida deletar', () => {
-  //   buscar()
+  it('valida deletar', () => {
+    buscar()
     
-  //   cy.get('td button').first().click()
-  //   cy.get('button').contains('Sim').click()
-  //   cy.get('div').should('contain', 'Registro deletado com sucesso.')
-  // })
+    cy.get('td button').eq(1).click()
+    cy.get('button').contains('Sim').click()
+    cy.get('div').should('contain', 'Registro deletado com sucesso.')
+  })
 
-  // function buscar(){
-  //   cy.visit(urlListagem)
-  //   cy.get('#search').type('Fulano de')
-  //   cy.get('button').contains('Pesquisar').click()
-  //   cy.wait(2000)
-  // }
+  function buscar(){
+    cy.visit(urlListagem)
+    cy.get('#search').type('Fulano de')
+    cy.get('button').contains('Pesquisar').click()
+    cy.wait(2000)
+  }
 
   function preencherFormulario(){
     cy.get('#name').type('Fulano de Tal')
