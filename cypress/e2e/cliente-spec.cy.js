@@ -97,6 +97,16 @@ describe('Crud Cliente Spec', () => {
     cy.get('div').should('contain', 'Registro atualizado com sucesso.')
   })
 
+  it('valida editar com delecao contato', () => {
+    buscar()
+    
+    cy.get('td button').last().click()
+    cy.get('td button').first().click()
+
+    cy.get('button').contains('Salvar').click()
+    cy.get('div').should('contain', 'Registro atualizado com sucesso.')
+  })
+
   it('valida deletar', () => {
     buscar()
     
@@ -136,6 +146,12 @@ describe('Crud Cliente Spec', () => {
     cy.get('#email').type('fulanodetal@gmail.com')
     cy.get('#telephone').type('8599999999')
     cy.get('#cellPhone').type('85999999999')
+
+    cy.get('button').contains('Contatos').click()
+    cy.get('#namefull').type('Contato de Teste')
+    cy.get('#phone').type('85999999999')
+    cy.get('#degreeKinship').type('Amigo')
+    cy.get('.p-dialog-content').find('button').contains('Salvar').click()
   }
 
   function validaCampoVazioFormulario(){
