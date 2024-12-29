@@ -77,7 +77,7 @@ describe('Crud Marca Spec', () => {
   }
 
   function validaCampoVazioFormulario(){
-    cy.get('#name').should('be.empty')
+    cy.get('#name').should('have.value', '')
     cy.get('#symbol').first().should('contain' , 'Selecione')
 
     cy.get('button').contains('Salvar').should('be.disabled')

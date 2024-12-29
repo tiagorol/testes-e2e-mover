@@ -59,6 +59,7 @@ describe('Crud Modelo Spec', () => {
 
   function buscar(){
     cy.visit(urlListagem)
+    cy.wait(1000)
     cy.get('#search').type('Modelo de Te')
     cy.get('button').contains('Pesquisar').click()
     cy.wait(2000)
@@ -76,7 +77,7 @@ describe('Crud Modelo Spec', () => {
   }
 
   function validaCampoVazioFormulario(){
-    cy.get('#name').should('be.empty')
+    cy.get('#name').should('have.value', '')
     cy.get('#brand').first().should('contain' , 'Selecione')
     
     cy.get('button').contains('Salvar').should('be.disabled')

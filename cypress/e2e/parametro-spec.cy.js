@@ -78,8 +78,8 @@ describe('Crud Parametro Spec', () => {
 
   function validaCampoVazioFormulario(){
     cy.get('#typeValue').first().should('contain' , 'Selecione')
-    cy.get('#key').should('be.empty')
-    cy.get('#valueText').should('be.empty')
+    cy.get('#key').should('have.value', '')
+    cy.get('#valueText').should('have.value', '')
 
     cy.get('button').contains('Salvar').should('be.disabled')
     cy.get('button').contains('Cancelar').should('be.enabled')

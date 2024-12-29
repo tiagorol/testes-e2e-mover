@@ -86,10 +86,10 @@ describe('Crud Cartao Spec', () => {
   }
 
   function validaCampoVazioFormulario(){
-    cy.get('#bankName').should('be.empty')
-    cy.get('#limit').should('be.empty')
-    cy.get('#closingDay').should('be.empty')
-    cy.get('#dueDate').should('be.empty')
+    cy.get('#bankName').should('have.value', '')
+    cy.get('#limit').should('have.value', '')
+    cy.get('#closingDay').should('have.value', '')
+    cy.get('#dueDate').should('have.value', '')
     cy.get('#account').first().should('contain' , 'Selecione')
     cy.get('#icon').first().should('contain' , 'Selecione')
 

@@ -95,7 +95,7 @@ describe('Crud Categoria Spec', () => {
 
   function validaCampoVazioFormulario(){
     cy.get('#type').first().should('contain' , 'Selecione')
-    cy.get('#description').should('be.empty')
+    cy.get('#description').should('have.value', '')
     cy.get('input[name="active"]').should('be.checked')
 
     cy.get('button').contains('Salvar').should('be.disabled')

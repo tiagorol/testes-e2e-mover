@@ -78,9 +78,9 @@ describe('Crud Conta Spec', () => {
   }
 
   function validaCampoVazioFormulario(){
-    cy.get('#bankName').should('be.empty')
-    cy.get('#number').should('be.empty')
-    cy.get('#initialBalance').should('be.empty')
+    cy.get('#bankName').should('have.value', '')
+    cy.get('#number').should('have.value', '')
+    cy.get('#initialBalance').should('have.value', '')
     cy.get('#icon').first().should('contain' , 'Selecione')
     cy.get('input[name="caution"]').should('not.be.checked')
     cy.get('input[name="active"]').should('be.checked')

@@ -79,8 +79,8 @@ describe('Crud Socio Spec', () => {
   }
 
   function validaCampoVazioFormulario(){
-    cy.get('#name').should('be.empty')
-    cy.get('#email').should('be.empty')
+    cy.get('#name').should('have.value', '')
+    cy.get('#email').should('have.value', '')
     cy.get('input[name="active"]').should('be.checked')
 
     cy.get('button').contains('Salvar').should('be.disabled')
