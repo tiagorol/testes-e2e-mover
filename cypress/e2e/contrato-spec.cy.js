@@ -11,148 +11,86 @@ describe('Crud Contrato Spec', () => {
     validaCampoVazioFormulario()
   })
 
-  // it('valida botao voltar', () => {
-  //   cy.visit(urlNovo)
-  //   cy.get('a').contains('Voltar').click()
+  it('valida botao voltar', () => {
+    cy.visit(urlNovo)
+    cy.get('a').contains('Voltar').click()
 
-  //   cy.url().should('eq', urlListagem)
-  // })
+    cy.url().should('eq', urlListagem)
+  })
 
-  // it('valida botao cancelar', () => {
-  //   cy.visit(urlListagem)
-  //   cy.get('button').contains('Novo').click()
-  //   preencherFormulario()
-  //   cy.get('button').contains('Cancelar').click()
+  it('valida botao cancelar', () => {
+    cy.visit(urlListagem)
+    cy.get('button').contains('Novo').click()
+    preencherFormulario()
+    cy.get('button').contains('Cancelar').click()
 
-  //   validaCampoVazioFormulario()
-  // })
+    validaCampoVazioFormulario()
+  })
 
-  // it('valida CPF', () => {
-  //   cy.visit(urlNovo)
+  it('valida salvar', () => {
+    cy.visit(urlNovo)
+    preencherFormulario()
 
-  //   preencherFormulario()
-  //   cy.get('#cpf').clear().type('123456789')
-  //   cy.get('button').contains('Salvar').click()
-  //   cy.get('div').should('contain', 'CPF inválido.')
-  // })
+    cy.get('button').contains('Salvar').click()
+    cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
+  })
 
-  // it('valida busca CEP', () => {
-  //   cy.visit(urlNovo)
+  it('valida buscar', () => {
+    buscar()
 
-  //   cy.get('#postalCode').type('60821802')
-  //   cy.get('#number').type('1555')
-  //   cy.wait(1000)
-  //   cy.get('#publicPlace').should('have.value', 'AVENIDA OLIVEIRA PAIVA')
-  //   cy.get('#neighborhood').should('have.value', 'PARQUE MANIBURA')
-  //   cy.get('#city').should('have.value', 'FORTALEZA')
-  //   cy.get('#state').first().should('contain' , 'CEAR')
-  // })
+    cy.get('td').should('contain', 'CLIENTE DE TESTE')
+  })
 
-  // it('valida email', () => {
-  //   cy.visit(urlNovo)
-  //   preencherFormulario()
-  //   cy.get('#email').clear().type('fulanodetal')
-
-  //   cy.get('button').contains('Salvar').click()
-  //   cy.get('div').should('contain', 'E-mail inválido.')
-  // })
-
-  // it('valida telefoneFixo', () => {
-  //   cy.visit(urlNovo)
-  //   preencherFormulario()
-  //   cy.get('#telephone').clear().type('859999')
-
-  //   cy.get('button').contains('Salvar').click()
-  //   cy.get('div').should('contain', 'Telefone fixo inválido.')
-  // })
-
-  // it('valida telefoneCelular', () => {
-  //   cy.visit(urlNovo)
-  //   preencherFormulario()
-  //   cy.get('#cellPhone').clear().type('859999')
-
-  //   cy.get('button').contains('Salvar').click()
-  //   cy.get('div').should('contain', 'Telefone celular inválido.')
-  // })
-
-  // it('valida salvar', () => {
-  //   cy.visit(urlNovo)
-  //   preencherFormulario()
-
-  //   cy.get('button').contains('Salvar').click()
-  //   cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
-  // })
-
-  // it('valida buscar', () => {
-  //   buscar()
-
-  //   cy.get('td').should('contain', 'FULANO DE TAL')
-  // })
-
-  // it('valida editar', () => {
-  //   buscar()
+  it('valida editar', () => {
+    buscar()
     
-  //   cy.get('td button').last().click()
-  //   cy.get('button').contains('Salvar').click()
-  //   cy.get('div').should('contain', 'Registro atualizado com sucesso.')
-  // })
+    cy.get('td button').eq(1).click()
+    cy.get('button').contains('Salvar').click()
+    cy.get('div').should('contain', 'Registro atualizado com sucesso.')
+  })
 
-  // it('valida editar com delecao contato', () => {
-  //   buscar()
+  it('valida deletar', () => {
+    buscar()
     
-  //   cy.get('td button').last().click()
-  //   cy.get('td button').first().click()
+    cy.get('td button').first().click()
+    cy.get('button').contains('Sim').click()
+    cy.get('div').should('contain', 'Registro deletado com sucesso.')
+  })
 
-  //   cy.get('button').contains('Salvar').click()
-  //   cy.get('div').should('contain', 'Registro atualizado com sucesso.')
-  // })
+  function buscar(){
+    cy.visit(urlListagem)
+    cy.get('#search').type('Cliente de Teste')
+    cy.get('button').contains('Pesquisar').click()
+    cy.wait(2000)
+  }
 
-  // it('valida deletar', () => {
-  //   buscar()
-    
-  //   cy.get('td button').eq(1).click()
-  //   cy.get('button').contains('Sim').click()
-  //   cy.get('div').should('contain', 'Registro deletado com sucesso.')
-  // })
+  function preencherFormulario(){
+    cy.get('#client')
+      .first()
+      .click()
+      .find('p-dropdownitem')
+      .eq(1)
+      .click()
 
-  // function buscar(){
-  //   cy.visit(urlListagem)
-  //   cy.get('#search').type('Fulano de')
-  //   cy.get('button').contains('Pesquisar').click()
-  //   cy.wait(2000)
-  // }
+    cy.get('#vehicle')
+      .first()
+      .click()
+      .find('p-dropdownitem')
+      .eq(1)
+      .click()
 
-  // function preencherFormulario(){
-  //   cy.get('#name').type('Fulano de Tal')
-  //   cy.get('#cpf').type('81591190037')
-  //   cy.get('#rg').type('9999999999')
-  //   cy.get('#dateBirth').type('03111980')
-  //   cy.get('#motherName').type('Mãe de Fulano de Tal')
-  //   cy.get('#postalCode').type('60822999')
-  //   cy.get('#number').type('1555')
-  //   cy.wait(1000)
-  //   cy.get('#publicPlace').type('Rua das Flores')
-  //   cy.get('#neighborhood').type('Centro')
-  //   cy.get('#city').type('Fortaleza')
+    cy.get('#initialDate').clear().type('30112024')
+    cy.get('#billingStartDate').type('30112024')
+    cy.get('#depositAmount').type('150000')
+    cy.get('#recurrenceValue').type('65000')
 
-  //   cy.get('#state')
-  //     .first()
-  //     .click()
-  //     .find('p-dropdownitem')
-  //     .contains('ALAGOAS')
-  //     .click()
-
-  //   cy.get('#complement').type('Bl 01 apto 601')
-  //   cy.get('#email').type('fulanodetal@gmail.com')
-  //   cy.get('#telephone').type('8599999999')
-  //   cy.get('#cellPhone').type('85999999999')
-
-  //   cy.get('button').contains('Contatos').click()
-  //   cy.get('#namefull').type('Contato de Teste')
-  //   cy.get('#phone').type('85999999999')
-  //   cy.get('#degreeKinship').type('Amigo')
-  //   cy.get('.p-dialog-content').find('button').contains('Salvar').click()
-  // }
+    cy.get('#paymentDay')
+      .first()
+      .click()
+      .find('p-dropdownitem')
+      .contains('SEXTA-FEIRA')
+      .click()
+  }
 
   function validaCampoVazioFormulario(){
     cy.get('#number').should('not.have.value', '');
@@ -164,9 +102,10 @@ describe('Crud Contrato Spec', () => {
     cy.get('#depositAmount').should('have.value', '')
     cy.get('#recurrenceValue').should('have.value', '')
 
-    // cy.get('#paymentFrequency').first().should('contain' , 'Selecione')
+    cy.get('#paymentFrequency').first().should('contain' , 'Selecione')
     cy.get('#paymentDay').first().should('contain' , 'Selecione')
     cy.get('#situation').first().should('contain' , 'EM ANDAMENTO')
+  
 
     cy.get('button').contains('Salvar').should('be.disabled')
     cy.get('button').contains('Cancelar').should('be.enabled')
