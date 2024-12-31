@@ -84,6 +84,13 @@ describe('Crud Contrato Spec', () => {
     cy.get('#depositAmount').type('150000')
     cy.get('#recurrenceValue').type('65000')
 
+    cy.get('#paymentFrequency')
+      .first()
+      .click()
+      .find('p-dropdownitem')
+      .contains('SEMANAL')
+      .click()
+
     cy.get('#paymentDay')
       .first()
       .click()
