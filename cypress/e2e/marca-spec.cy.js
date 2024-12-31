@@ -66,6 +66,7 @@ describe('Crud Marca Spec', () => {
   }
 
   function preencherFormulario(){
+    cy.wait(1000)
     cy.get('#name').type('BYD')
 
     cy.get('#symbol')
