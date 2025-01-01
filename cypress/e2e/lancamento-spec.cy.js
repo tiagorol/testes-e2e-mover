@@ -8,7 +8,7 @@ describe('Crud Lancamento Spec', () => {
     cy.visit(urlListagem)
     cy.get('button').contains('Novo').click()
 
-    // validaCampoVazioFormulario()
+    validaCampoVazioFormulario()
   })
 
   it('valida botao voltar', () => {
@@ -18,28 +18,28 @@ describe('Crud Lancamento Spec', () => {
     cy.url().should('eq', urlListagem)
   })
 
-  // it('valida botao cancelar', () => {
-  //   cy.visit(urlListagem)
-  //   cy.get('button').contains('Novo').click()
-  //   preencherFormulario()
-  //   cy.get('button').contains('Cancelar').click()
+  it('valida botao cancelar', () => {
+    cy.visit(urlListagem)
+    cy.get('button').contains('Novo').click()
+    preencherFormulario()
+    cy.get('button').contains('Cancelar').click()
 
-  //   validaCampoVazioFormulario()
-  // })
+    validaCampoVazioFormulario()
+  })
 
-  // it('valida salvar', () => {
-  //   cy.visit(urlNovo)
-  //   preencherFormulario()
+  it('valida salvar', () => {
+    cy.visit(urlNovo)
+    preencherFormulario()
 
-  //   cy.get('button').contains('Salvar').click()
-  //   cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
-  // })
+    cy.get('button').contains('Salvar').click()
+    cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
+  })
 
-  // it('valida buscar', () => {
-  //   buscar()
+  it('valida buscar', () => {
+    buscar()
 
-  //   cy.get('td').should('contain', 'CLIENTE DE TESTE')
-  // })
+    cy.get('td').should('contain', 'LANÇAMENTO DE TESTE	')
+  })
 
   // it('valida editar', () => {
   //   buscar()
@@ -57,58 +57,74 @@ describe('Crud Lancamento Spec', () => {
   //   cy.get('div').should('contain', 'Registro deletado com sucesso.')
   // })
 
-  // function buscar(){
-  //   cy.visit(urlListagem)
-  //   cy.get('#search').type('Cliente de Teste')
-  //   cy.get('button').contains('Pesquisar').click()
-  //   cy.wait(2000)
-  // }
+  function buscar(){
+    cy.visit(urlListagem)
+    cy.get('.cursor-pointer').clear({ force: true }).type('11/2024', { force: true })
+    cy.get('#search').type('Lançamento de Teste')  
+    
+    cy.get('button').contains('Pesquisar').click()
+    cy.wait(2000)
+  }
 
-  // function preencherFormulario(){
-  //   cy.get('#client')
-  //     .first()
-  //     .click()
-  //     .find('p-dropdownitem')
-  //     .eq(1)
-  //     .click()
+  function preencherFormulario(){
+    cy.get('#typeCategory')
+      .first()
+      .click()
+      .find('p-dropdownitem')
+      .contains('RECEITA')
+      .click()
 
-  //   cy.get('#vehicle')
-  //     .first()
-  //     .click()
-  //     .find('p-dropdownitem')
-  //     .eq(1)
-  //     .click()
+    cy.get('#subcategory')
+      .first()
+      .click()
+      .find('p-dropdownitem')
+      .eq(0)
+      .click()
 
-  //   cy.get('#initialDate').clear().type('30112024')
-  //   cy.get('#billingStartDate').type('30112024')
-  //   cy.get('#depositAmount').type('150000')
-  //   cy.get('#recurrenceValue').type('65000')
+    cy.wait(500)
 
-  //   cy.get('#paymentDay')
-  //     .first()
-  //     .click()
-  //     .find('p-dropdownitem')
-  //     .contains('SEXTA-FEIRA')
-  //     .click()
-  // }
+    cy.get('#description').type('Lançamento de Teste')
 
-  // function validaCampoVazioFormulario(){
-  //   cy.get('#number').should('not.have.value', '');
-  //   cy.get('#client').first().should('contain' , 'Selecione')
-  //   cy.get('#vehicle').first().should('contain' , 'Selecione') 
-  //   cy.get('#initialDate').should('not.have.value', '')
-  //   cy.get('#endDate').should('have.value', '')
-  //   cy.get('#billingStartDate').should('have.value', '')
-  //   cy.get('#depositAmount').should('have.value', '')
-  //   cy.get('#recurrenceValue').should('have.value', '')
+    cy.get('#vehicle')
+      .first()
+      .click()
+      .find('p-dropdownitem')
+      .eq(1)
+      .click()
 
-  //   cy.get('#paymentFrequency').first().should('contain' , 'Selecione')
-  //   cy.get('#paymentDay').first().should('contain' , 'Selecione')
-  //   cy.get('#situation').first().should('contain' , 'EM ANDAMENTO')
-  
+    cy.get('#account')
+      .first()
+      .click()
+      .find('p-dropdownitem')
+      .eq(1)
+      .click()
 
-  //   cy.get('button').contains('Salvar').should('be.disabled')
-  //   cy.get('button').contains('Cancelar').should('be.enabled')
-  // }
+    cy.get('#card')
+      .first()
+      .click()
+      .find('p-dropdownitem')
+      .eq(1)
+      .click()
+
+    cy.get('#value').type('150000')
+    cy.get('#dueDate').type('10112024')
+    cy.get('#paymentDate').type('10112024')
+  }
+
+  function validaCampoVazioFormulario(){
+    cy.get('#typeCategory').first().should('contain' , 'Selecione')
+    cy.get('#subcategory').first().should('contain' , 'Selecione')
+    cy.get('#description').should('have.value', '');
+    cy.get('#vehicle').first().should('contain' , 'Selecione')
+    cy.get('#contract').first().should('contain' , 'Selecione')
+    cy.get('#account').first().should('contain' , 'Selecione')
+    cy.get('#card').first().should('contain' , 'Selecione')
+    cy.get('#value').should('have.value', '');
+    cy.get('#dueDate').should('have.value', '');
+    cy.get('#paymentDate').should('have.value', '');
+
+    cy.get('button').contains('Salvar').should('be.disabled')
+    cy.get('button').contains('Cancelar').should('be.enabled')
+  }
 
 })
