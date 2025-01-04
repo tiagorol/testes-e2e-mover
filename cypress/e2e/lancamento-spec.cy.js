@@ -21,41 +21,68 @@ describe('Crud Lancamento Spec', () => {
   it('valida botao cancelar', () => {
     cy.visit(urlListagem)
     cy.get('button').contains('Novo').click()
-    preencherFormulario()
+    preencherFormularioReceita()
     cy.get('button').contains('Cancelar').click()
 
     validaCampoVazioFormulario()
   })
 
-  it('valida salvar', () => {
+  it('valida salvar receita', () => {
     cy.visit(urlNovo)
-    preencherFormulario()
+    preencherFormularioReceita()
 
     cy.get('button').contains('Salvar').click()
+    cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
+  })
+
+  it('valida salvar receita parcelamento fixo', () => {
+    cy.visit(urlNovo)
+    preencherFormularioReceita()
+    preencherFormularioParcelamentoFixo()
+
+    cy.get('button').contains('Salvar').click()
+    cy.wait(2000)
     cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
   })
 
   it('valida buscar', () => {
     buscar()
 
-    cy.get('td').should('contain', 'LANÇAMENTO DE TESTE	')
+    cy.get('td').should('contain', 'LANÇAMENTO DE TESTE')
   })
 
-  // it('valida editar', () => {
-  //   buscar()
+  it('valida editar', () => {
+    buscar()
     
-  //   cy.get('td button').eq(1).click()
-  //   cy.get('button').contains('Salvar').click()
-  //   cy.get('div').should('contain', 'Registro atualizado com sucesso.')
-  // })
+    cy.get('td button').eq(1).click()
+    cy.get('button').contains('Salvar').click()
+    cy.get('div').should('contain', 'Registro atualizado com sucesso.')
+  })
 
-  // it('valida deletar', () => {
-  //   buscar()
+  it('valida deletar', () => {
+    buscar()
     
-  //   cy.get('td button').first().click()
-  //   cy.get('button').contains('Sim').click()
-  //   cy.get('div').should('contain', 'Registro deletado com sucesso.')
-  // })
+    cy.get('td button').first().click()
+    cy.get('button').contains('Sim').click()
+    cy.get('div').should('contain', 'Lançamento excluido com sucesso.')
+  })
+
+  it('valida deletar parcelamento fixo', () => {
+    buscaPrarcelamentoFixo()
+    
+    cy.get('td button').first().click()
+    cy.get('button').contains('Excluir este e os próximos').click()
+    cy.get('div').should('contain', 'Lançamentos excluídos com sucesso.')
+  })
+
+  function buscaPrarcelamentoFixo(){
+    cy.visit(urlListagem)
+    cy.get('.cursor-pointer').clear({ force: true }).type('12/2024', { force: true })
+    cy.get('#search').type('Lançamento Fixo')  
+    
+    cy.get('button').contains('Pesquisar').click()
+    cy.wait(2000)
+  }
 
   function buscar(){
     cy.visit(urlListagem)
@@ -66,7 +93,31 @@ describe('Crud Lancamento Spec', () => {
     cy.wait(2000)
   }
 
-  function preencherFormulario(){
+  function preencherFormularioParcelamentoFixo(){
+    cy.get('button').contains('Hab. parcelamento').click()
+
+    cy.get('#type')
+      .first()
+      .click()
+      .find('p-dropdownitem')
+      .contains('FIXO')
+      .click()
+
+      cy.get('#frequency')
+        .first()
+        .click()
+        .find('p-dropdownitem')
+        .contains('SEMANAL')
+        .click()
+
+      cy.get('#description').clear().type('Lançamento Fixo de Teste')
+      cy.get('#value').clear().type('63000')
+      cy.get('#dueDate').clear().type('10122024')
+      cy.get('#paymentDate').clear()
+      cy.get('input[name="paid"]').uncheck({ force: true }).uncheck({ force: true })
+  }
+
+  function preencherFormularioReceita(){
     cy.get('#typeCategory')
       .first()
       .click()
