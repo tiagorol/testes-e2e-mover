@@ -72,12 +72,13 @@ describe('Crud Lancamento Spec', () => {
     
     cy.get('td button').first().click()
     cy.get('button').contains('Excluir este e os próximos').click()
+    cy.wait(2000)
     cy.get('div').should('contain', 'Lançamentos excluídos com sucesso.')
   })
 
   function buscaPrarcelamentoFixo(){
     cy.visit(urlListagem)
-    cy.get('.cursor-pointer').clear({ force: true }).type('12/2024', { force: true })
+    cy.get('input[name="period"]').clear({ force: true }).type('12/2024', { force: true })
     cy.get('#search').type('Lançamento Fixo')  
     
     cy.get('button').contains('Pesquisar').click()
@@ -86,7 +87,7 @@ describe('Crud Lancamento Spec', () => {
 
   function buscar(){
     cy.visit(urlListagem)
-    cy.get('.cursor-pointer').clear({ force: true }).type('11/2024', { force: true })
+    cy.get('input[name="period"]').clear({ force: true }).type('11/2024', { force: true })
     cy.get('#search').type('Lançamento de Teste')  
     
     cy.get('button').contains('Pesquisar').click()
@@ -112,8 +113,9 @@ describe('Crud Lancamento Spec', () => {
 
       cy.get('#description').clear().type('Lançamento Fixo de Teste')
       cy.get('#value').clear().type('63000')
-      cy.get('#dueDate').clear().type('10122024')
-      cy.get('#paymentDate').clear()
+
+      cy.get('input[name="dueDate"]').clear({ force: true }).type('10/11/2024', { force: true })
+      cy.get('input[name="paymentDate"]').clear({ force: true })
       cy.get('input[name="paid"]').uncheck({ force: true }).uncheck({ force: true })
   }
 
@@ -158,8 +160,9 @@ describe('Crud Lancamento Spec', () => {
       .click()
 
     cy.get('#value').type('150000')
-    cy.get('#dueDate').type('10112024')
-    cy.get('#paymentDate').type('10112024')
+
+    cy.get('input[name="dueDate"]').type('10/11/2024', { force: true })
+    cy.get('input[name="paymentDate"]').type('10/11/2024', { force: true })
   }
 
   function validaCampoVazioFormulario(){
