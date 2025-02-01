@@ -1,8 +1,8 @@
 describe('Crud Cliente Spec', () => {
 
   const urlBase = 'https://moverfrotas.netlify.app/'
-  const urlListagem = urlBase + 'search/clients'
-  const urlNovo = urlBase +  'register/clients/new'
+  const urlListagem = urlBase + 'clients'
+  const urlNovo = urlBase +  '/clients/new'
 
   it('valida botao novo', () => {
     cy.visit(urlListagem)

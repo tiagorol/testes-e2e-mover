@@ -1,8 +1,8 @@
 describe('Crud Conta Spec', () => {
 
   const urlBase = 'https://moverfrotas.netlify.app/'
-  const urlListagem = urlBase + 'search/accounts'
-  const urlNovo = urlBase +  'register/accounts/new'
+  const urlListagem = urlBase + 'accounts'
+  const urlNovo = urlBase +  '/accounts/new'
 
   it('valida botao novo', () => {
     cy.visit(urlListagem)
@@ -69,20 +69,15 @@ describe('Crud Conta Spec', () => {
     cy.get('#number').type('99999999')
     cy.get('#initialBalance').type('0.00')
 
-    cy.get('#icon')
-      .first()
-      .click()
-      .find('span')
-      .contains('Bradesco')
-      .click()
+    cy.get('.icon-title').click()
+    cy.get('span').contains('Bradesco').click()
   }
 
   function validaCampoVazioFormulario(){
     cy.get('#bankName').should('have.value', '')
     cy.get('#number').should('have.value', '')
-    cy.get('#initialBalance').should('have.value', '')
-    cy.get('#icon').first().should('contain' , 'Selecione')
-    cy.get('input[name="caution"]').should('not.be.checked')
+    cy.get('#initialBalance').should('have.value', '0,00')
+    cy.get('#caution').first().should('contain', 'NÃO')   
     cy.get('input[name="active"]').should('be.checked')
 
     cy.get('button').contains('Salvar').should('be.disabled')

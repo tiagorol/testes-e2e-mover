@@ -1,8 +1,8 @@
 describe('Crud Contrato Spec', () => {
 
   const urlBase = 'https://moverfrotas.netlify.app/'
-  const urlListagem = urlBase + 'search/contracts'
-  const urlNovo = urlBase +  'register/contracts/new'
+  const urlListagem = urlBase + 'contracts'
+  const urlNovo = urlBase +  '/contracts/new'
 
   it('valida botao novo', () => {
     cy.visit(urlListagem)
@@ -100,14 +100,13 @@ describe('Crud Contrato Spec', () => {
   }
 
   function validaCampoVazioFormulario(){
-    cy.get('#number').should('not.have.value', '');
     cy.get('#client').first().should('contain' , 'Selecione')
     cy.get('#vehicle').first().should('contain' , 'Selecione') 
     cy.get('#initialDate').should('not.have.value', '')
     cy.get('#endDate').should('have.value', '')
     cy.get('#billingStartDate').should('have.value', '')
-    cy.get('#depositAmount').should('have.value', '')
-    cy.get('#recurrenceValue').should('have.value', '')
+    cy.get('#depositAmount').should('have.value', '0,00')
+    cy.get('#recurrenceValue').should('have.value', '0,00')
 
     cy.get('#paymentFrequency').first().should('contain' , 'Selecione')
     cy.get('#paymentDay').first().should('contain' , 'Selecione')

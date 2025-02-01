@@ -1,8 +1,8 @@
 describe('Crud Parametro Spec', () => {
 
   const urlBase = 'https://moverfrotas.netlify.app/'
-  const urlListagem = urlBase + 'search/configurations'
-  const urlNovo = urlBase +  'register/configurations/new'
+  const urlListagem = urlBase + 'parameters'
+  const urlNovo = urlBase +  '/parameters/new'
 
   it('valida botao novo', () => {
     cy.visit(urlListagem)

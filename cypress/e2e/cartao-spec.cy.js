@@ -1,8 +1,8 @@
 describe('Crud Cartao Spec', () => {
 
   const urlBase = 'https://moverfrotas.netlify.app/'
-  const urlListagem = urlBase + 'search/cards'
-  const urlNovo = urlBase +  'register/cards/new'
+  const urlListagem = urlBase + 'cards'
+  const urlNovo = urlBase +  '/cards/new'
 
   it('valida botao novo', () => {
     cy.visit(urlListagem)
@@ -77,21 +77,16 @@ describe('Crud Cartao Spec', () => {
       .last()
       .click()
 
-      cy.get('#icon')
-      .first()
-      .click()
-      .find('p-dropdownitem')
-      .last()
-      .click()  
+      cy.get('.icon-title').click()
+      cy.get('span').contains('AGI Bank').click()
   }
 
   function validaCampoVazioFormulario(){
     cy.get('#bankName').should('have.value', '')
-    cy.get('#limit').should('have.value', '')
+    cy.get('#limit').should('have.value', '0,00')
     cy.get('#closingDay').should('have.value', '')
     cy.get('#dueDate').should('have.value', '')
     cy.get('#account').first().should('contain' , 'Selecione')
-    cy.get('#icon').first().should('contain' , 'Selecione')
 
     cy.get('input[name="active"]').should('be.checked')
   

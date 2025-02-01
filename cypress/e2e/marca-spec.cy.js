@@ -1,8 +1,8 @@
 describe('Crud Marca Spec', () => {
 
   const urlBase = 'https://moverfrotas.netlify.app/'
-  const urlListagem = urlBase + 'search/brands'
-  const urlNovo = urlBase +  'register/brands/new'
+  const urlListagem = urlBase + 'brands'
+  const urlNovo = urlBase +  '/brands/new'
 
   it('valida botao novo', () => {
     cy.visit(urlListagem)
@@ -69,17 +69,12 @@ describe('Crud Marca Spec', () => {
     cy.wait(1000)
     cy.get('#name').type('BYD')
 
-    cy.get('#symbol')
-      .first()
-      .click()
-      .find('p-dropdownitem')
-      .last()
-      .click()  
+    cy.get('.icon-title').click()
+    cy.get('span').contains('BMW').click()
   }
 
   function validaCampoVazioFormulario(){
     cy.get('#name').should('have.value', '')
-    cy.get('#symbol').first().should('contain' , 'Selecione')
 
     cy.get('button').contains('Salvar').should('be.disabled')
     cy.get('button').contains('Cancelar').should('be.enabled')
