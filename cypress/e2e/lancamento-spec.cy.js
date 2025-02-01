@@ -1,8 +1,8 @@
 describe('Crud Lancamento Spec', () => {
 
   const urlBase = 'https://moverfrotas.netlify.app/'
-  const urlListagem = urlBase + 'search/transactions'
-  const urlNovo = urlBase +  'register/transactions/new'
+  const urlListagem = urlBase + 'transactions'
+  const urlNovo = urlBase +  '/transactions/new'
 
   it('valida botao novo', () => {
     cy.visit(urlListagem)
@@ -95,7 +95,7 @@ describe('Crud Lancamento Spec', () => {
   }
 
   function preencherFormularioParcelamentoFixo(){
-    cy.get('button').contains('Hab. parcelamento').click()
+    cy.get('button').contains('Ativa repetição').click()
 
     cy.get('#type')
       .first()
@@ -173,7 +173,7 @@ describe('Crud Lancamento Spec', () => {
     cy.get('#contract').first().should('contain' , 'Selecione')
     cy.get('#account').first().should('contain' , 'Selecione')
     cy.get('#card').first().should('contain' , 'Selecione')
-    cy.get('#value').should('have.value', '');
+    cy.get('#value').should('have.value', '0,00');
     cy.get('#dueDate').should('have.value', '');
     cy.get('#paymentDate').should('have.value', '');
 
