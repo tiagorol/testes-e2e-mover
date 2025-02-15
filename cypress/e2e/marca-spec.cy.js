@@ -4,6 +4,10 @@ describe('Crud Marca Spec', () => {
   const urlListagem = urlBase + 'brands'
   const urlNovo = urlBase +  '/brands/new'
 
+  beforeEach(() => {
+    cy.login()
+  })
+
   it('valida botao novo', () => {
     cy.visit(urlListagem)
     cy.get('button').contains('Novo').click()
@@ -70,7 +74,7 @@ describe('Crud Marca Spec', () => {
     cy.get('#name').type('BYD')
 
     cy.get('.icon-title').click()
-    cy.get('span').contains('BMW').click()
+    cy.get('span').contains('BMW').click({ force: true })
   }
 
   function validaCampoVazioFormulario(){

@@ -4,6 +4,10 @@ describe('Crud Conta Spec', () => {
   const urlListagem = urlBase + 'accounts'
   const urlNovo = urlBase +  '/accounts/new'
 
+  beforeEach(() => {
+    cy.login()
+  })
+
   it('valida botao novo', () => {
     cy.visit(urlListagem)
     cy.get('button').contains('Novo').click()

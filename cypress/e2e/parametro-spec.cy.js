@@ -4,6 +4,10 @@ describe('Crud Parametro Spec', () => {
   const urlListagem = urlBase + 'parameters'
   const urlNovo = urlBase +  '/parameters/new'
 
+  beforeEach(() => {
+    cy.login()
+  })
+
   it('valida botao novo', () => {
     cy.visit(urlListagem)
     cy.get('button').contains('Novo').click()

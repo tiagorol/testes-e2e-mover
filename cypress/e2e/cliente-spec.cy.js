@@ -4,6 +4,10 @@ describe('Crud Cliente Spec', () => {
   const urlListagem = urlBase + 'clients'
   const urlNovo = urlBase +  '/clients/new'
 
+  beforeEach(() => {
+    cy.login()
+  })
+
   it('valida botao novo', () => {
     cy.visit(urlListagem)
     cy.get('button').contains('Novo').click()
@@ -22,7 +26,7 @@ describe('Crud Cliente Spec', () => {
     cy.visit(urlListagem)
     cy.get('button').contains('Novo').click()
     preencherFormulario()
-    cy.get('button').contains('Cancelar').click()
+    cy.get('button').contains('Cancelar').click({force: true})
 
     validaCampoVazioFormulario()
   })
@@ -31,7 +35,7 @@ describe('Crud Cliente Spec', () => {
     cy.visit(urlNovo)
 
     preencherFormulario()
-    cy.get('#cpf').clear().type('123456789')
+    cy.get('#cpf').clear({force: true}).type('123456789')
     cy.get('button').contains('Salvar').click()
     cy.get('div').should('contain', 'CPF inválido.')
   })
@@ -51,27 +55,27 @@ describe('Crud Cliente Spec', () => {
   it('valida email', () => {
     cy.visit(urlNovo)
     preencherFormulario()
-    cy.get('#email').clear().type('fulanodetal')
+    cy.get('#email').clear({ force: true }).type('fulanodetal')
 
-    cy.get('button').contains('Salvar').click()
+    cy.get('button').contains('Salvar').click({force: true})
     cy.get('div').should('contain', 'E-mail inválido.')
   })
 
   it('valida telefoneFixo', () => {
     cy.visit(urlNovo)
     preencherFormulario()
-    cy.get('#telephone').clear().type('859999')
+    cy.get('#telephone').clear({ force: true }).type('859999')
 
-    cy.get('button').contains('Salvar').click()
+    cy.get('button').contains('Salvar').click({force: true})
     cy.get('div').should('contain', 'Telefone fixo inválido.')
   })
 
   it('valida telefoneCelular', () => {
     cy.visit(urlNovo)
     preencherFormulario()
-    cy.get('#cellPhone').clear().type('859999')
+    cy.get('#cellPhone').clear({force: true}).type('859999')
 
-    cy.get('button').contains('Salvar').click()
+    cy.get('button').contains('Salvar').click({force: true})
     cy.get('div').should('contain', 'Telefone celular inválido.')
   })
 
@@ -79,7 +83,7 @@ describe('Crud Cliente Spec', () => {
     cy.visit(urlNovo)
     preencherFormulario()
 
-    cy.get('button').contains('Salvar').click()
+    cy.get('button').contains('Salvar').click({force: true})
     cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
   })
 
@@ -143,11 +147,11 @@ describe('Crud Cliente Spec', () => {
       .click()
 
     cy.get('#complement').type('Bl 01 apto 601')
-    cy.get('#email').type('fulanodetal@gmail.com')
+    cy.get('#email').type('fulanodetal@gmail.com', { force: true })
     cy.get('#telephone').type('8599999999')
     cy.get('#cellPhone').type('85999999999')
 
-    cy.get('button').contains('Contatos').click()
+    cy.get('button').contains('Contatos').click({ force: true })
     cy.get('#namefull').type('Contato de Teste')
     cy.get('#phone').type('85999999999')
     cy.get('#degreeKinship').type('Amigo')

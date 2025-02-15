@@ -23,3 +23,13 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+const urlLogin = 'https://moverfrotas.netlify.app/login'
+
+Cypress.Commands.add('login', ()=> {
+    cy.visit(urlLogin)
+    cy.get('#username').type('mover@sistemas.com')
+    cy.get('#password').type('$meucarro$')
+    cy.get('button').contains('Login').click()
+    cy.wait(2000)
+  })

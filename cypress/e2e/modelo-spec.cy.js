@@ -4,6 +4,10 @@ describe('Crud Modelo Spec', () => {
   const urlListagem = urlBase + 'models'
   const urlNovo = urlBase +  '/models/new'
 
+  beforeEach(() => {
+    cy.login()
+  })
+
   it('valida botao novo', () => {
     cy.visit(urlListagem)
     cy.get('button').contains('Novo').click()
