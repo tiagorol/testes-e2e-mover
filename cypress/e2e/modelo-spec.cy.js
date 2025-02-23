@@ -1,6 +1,6 @@
 describe('Crud Modelo Spec', () => {
 
-  const urlBase = 'https://moverfrotas.netlify.app/'
+  const urlBase = Cypress.env('urlBase')
   const urlListagem = urlBase + 'models'
   const urlNovo = urlBase +  '/models/new'
 

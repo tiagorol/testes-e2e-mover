@@ -8,4 +8,8 @@ module.exports = defineConfig({
   e2e: {
     // e2e options here
   },
+
+  env: {
+    urlBase: 'https://moverfrotashom.netlify.app/'
+  }
 })

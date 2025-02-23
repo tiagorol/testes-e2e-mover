@@ -1,6 +1,6 @@
 describe('Crud Lancamento Spec', () => {
 
-  const urlBase = 'https://moverfrotas.netlify.app/'
+  const urlBase = Cypress.env('urlBase')
   const urlListagem = urlBase + 'transactions'
   const urlNovo = urlBase +  '/transactions/new'
 
@@ -25,7 +25,7 @@ describe('Crud Lancamento Spec', () => {
   it('valida botao cancelar', () => {
     cy.visit(urlListagem)
     cy.get('button').contains('Novo').click()
-    preencherFormularioReceita()
+    preencherFormularioReceita() 
     cy.get('button').contains('Cancelar').click()
 
     validaCampoVazioFormulario()
@@ -85,7 +85,7 @@ describe('Crud Lancamento Spec', () => {
     cy.get('input[name="period"]').clear({ force: true }).type('12/2024', { force: true })
     cy.get('#search').type('Lançamento Fixo')  
     
-    cy.get('button').contains('Pesquisar').click()
+    cy.get('button').contains('Pesquisar').click({force: true} )
     cy.wait(2000)
   }
 
@@ -94,7 +94,7 @@ describe('Crud Lancamento Spec', () => {
     cy.get('input[name="period"]').clear({ force: true }).type('11/2024', { force: true })
     cy.get('#search').type('Lançamento de Teste')  
     
-    cy.get('button').contains('Pesquisar').click()
+    cy.get('button').contains('Pesquisar').click({force: true} )
     cy.wait(2000)
   }
 

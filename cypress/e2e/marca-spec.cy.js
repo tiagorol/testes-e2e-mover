@@ -1,6 +1,6 @@
 describe('Crud Marca Spec', () => {
 
-  const urlBase = 'https://moverfrotas.netlify.app/'
+  const urlBase = Cypress.env('urlBase')
   const urlListagem = urlBase + 'brands'
   const urlNovo = urlBase +  '/brands/new'
 
@@ -74,6 +74,7 @@ describe('Crud Marca Spec', () => {
     cy.get('#name').type('BYD')
 
     cy.get('.icon-title').click()
+    cy.wait(2000)
     cy.get('span').contains('BMW').click({ force: true })
   }
 

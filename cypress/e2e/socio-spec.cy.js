@@ -1,6 +1,6 @@
 describe('Crud Socio Spec', () => {
 
-  const urlBase = 'https://moverfrotas.netlify.app/'
+  const urlBase = Cypress.env('urlBase')
   const urlListagem = urlBase + 'partners'
   const urlNovo = urlBase +  '/partners/new'
 

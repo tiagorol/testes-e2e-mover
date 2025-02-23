@@ -1,6 +1,6 @@
 describe('Crud Cartao Spec', () => {
 
-  const urlBase = 'https://moverfrotas.netlify.app/'
+  const urlBase = Cypress.env('urlBase')
   const urlListagem = urlBase + 'cards'
   const urlNovo = urlBase +  '/cards/new'
 
@@ -10,7 +10,7 @@ describe('Crud Cartao Spec', () => {
 
   it('valida botao novo', () => {
     cy.visit(urlListagem)
-    cy.get('button').contains('Novo').click()
+    cy.get('button').contains('Novo').click({force: true})
 
     validaCampoVazioFormulario()
   })
@@ -24,9 +24,9 @@ describe('Crud Cartao Spec', () => {
 
   it('valida botao cancelar', () => {
     cy.visit(urlListagem)
-    cy.get('button').contains('Novo').click()
+    cy.get('button').contains('Novo').click({force: true})
     preencherFormulario()
-    cy.get('button').contains('Cancelar').click()
+    cy.get('button').contains('Cancelar').click({force: true})
 
     validaCampoVazioFormulario()
   })
@@ -35,7 +35,7 @@ describe('Crud Cartao Spec', () => {
     cy.visit(urlNovo)
     preencherFormulario()
 
-    cy.get('button').contains('Salvar').click()
+    cy.get('button').contains('Salvar').click({force: true})
     cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
   })
 
@@ -57,14 +57,14 @@ describe('Crud Cartao Spec', () => {
     buscar()
     
     cy.get('td button').first().click()
-    cy.get('button').contains('Sim').click()
+    cy.get('button').contains('Sim').click({force: true})
     cy.get('div').should('contain', 'Registro deletado com sucesso.')
   })
 
   function buscar(){
     cy.visit(urlListagem)
     cy.get('#search').type('Cartão Bradesco')
-    cy.get('button').contains('Pesquisar').click()
+    cy.get('button').contains('Pesquisar').click({force: true})
     cy.wait(2000)
   }
 

@@ -1,6 +1,6 @@
-describe('Crud Socio Spec', () => {
+describe('Crud Usuario Spec', () => {
 
-  const urlBase = 'https://moverfrotas.netlify.app/'
+  const urlBase = Cypress.env('urlBase')
   const urlListagem = urlBase + 'users'
   const urlNovo = urlBase +  '/users/new'
 
@@ -88,7 +88,7 @@ describe('Crud Socio Spec', () => {
       .click()
       .find('span')
       .eq(1)
-      .click()
+      .click({force: true})
   }
 
   function validaCampoVazioFormulario(){

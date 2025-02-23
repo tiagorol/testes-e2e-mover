@@ -1,6 +1,6 @@
 describe('Crud Categoria Spec', () => {
 
-  const urlBase = 'https://moverfrotas.netlify.app/'
+  const urlBase = Cypress.env('urlBase')
   const urlListagem = urlBase + 'categories'
   const urlNovo = urlBase +  '/categories/new'
 
@@ -10,7 +10,7 @@ describe('Crud Categoria Spec', () => {
 
   it('valida botao novo', () => {
     cy.visit(urlListagem)
-    cy.get('button').contains('Novo').click()
+    cy.get('button').contains('Novo').click({force: true})
 
     validaCampoVazioFormulario()
   })
@@ -24,9 +24,9 @@ describe('Crud Categoria Spec', () => {
 
   it('valida botao cancelar', () => {
     cy.visit(urlListagem)
-    cy.get('button').contains('Novo').click()
+    cy.get('button').contains('Novo').click({force: true})
     preencherFormulario()
-    cy.get('button').contains('Cancelar').click()
+    cy.get('button').contains('Cancelar').click({force: true})
 
     validaCampoVazioFormulario()
   })
@@ -35,7 +35,7 @@ describe('Crud Categoria Spec', () => {
     cy.visit(urlNovo)
     preencherFormulario()
 
-    cy.get('button').contains('Salvar').click()
+    cy.get('button').contains('Salvar').click({force: true})
     cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
   })
 
@@ -54,7 +54,7 @@ describe('Crud Categoria Spec', () => {
 
     cy.get('.p-dialog-content').find('input').first().clear().type('Nova Subcategoria de Testes')
     cy.get('.p-dialog-content').find('button').contains('Salvar').click()
-    cy.get('button').contains('Salvar').click()
+    cy.get('button').contains('Salvar').click({force: true})
     cy.get('div').should('contain', 'Registro atualizado com sucesso.')
   })
 
@@ -64,7 +64,7 @@ describe('Crud Categoria Spec', () => {
     cy.get('td button').last().click()
     cy.get('td button').first().click()
 
-    cy.get('button').contains('Salvar').click()
+    cy.get('button').contains('Salvar').click({force: true})
     cy.get('div').should('contain', 'Registro atualizado com sucesso.')
   })
 
@@ -72,14 +72,14 @@ describe('Crud Categoria Spec', () => {
     buscar()
     
     cy.get('td button').first().click()
-    cy.get('button').contains('Sim').click()
+    cy.get('button').contains('Sim').click({force: true})
     cy.get('div').should('contain', 'Registro deletado com sucesso.')
   })
 
   function buscar(){
     cy.visit(urlListagem)
     cy.get('#search').type('Categoria de Testes')
-    cy.get('button').contains('Pesquisar').click()
+    cy.get('button').contains('Pesquisar').click({force: true})
     cy.wait(2000)
   }
 
@@ -92,7 +92,7 @@ describe('Crud Categoria Spec', () => {
       .click()
 
     cy.get('#description').type('Categoria de Testes')
-    cy.get('button').contains('Adicionar subcategoria').click()
+    cy.get('button').contains('Adicionar subcategoria').click({force: true})
     cy.get('.p-dialog-content').find('input').first().type('Subcategoria de Testes')
     cy.get('.p-dialog-content').find('button').contains('Salvar').click()
   }

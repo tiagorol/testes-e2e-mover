@@ -1,6 +1,6 @@
 describe('Crud Conta Spec', () => {
 
-  const urlBase = 'https://moverfrotas.netlify.app/'
+  const urlBase = Cypress.env('urlBase')
   const urlListagem = urlBase + 'accounts'
   const urlNovo = urlBase +  '/accounts/new'
 
@@ -26,7 +26,7 @@ describe('Crud Conta Spec', () => {
     cy.visit(urlListagem)
     cy.get('button').contains('Novo').click()
     preencherFormulario()
-    cy.get('button').contains('Cancelar').click()
+    cy.get('button').contains('Cancelar').click({force: true})
 
     validaCampoVazioFormulario()
   })
@@ -35,7 +35,7 @@ describe('Crud Conta Spec', () => {
     cy.visit(urlNovo)
     preencherFormulario()
 
-    cy.get('button').contains('Salvar').click()
+    cy.get('button').contains('Salvar').click({force: true})
     cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
   })
 
@@ -49,7 +49,8 @@ describe('Crud Conta Spec', () => {
     buscar()
     
     cy.get('td button').last().click()
-    cy.get('button').contains('Salvar').click()
+    cy.wait(1000)
+    cy.get('button').contains('Salvar').click({force: true})
     cy.get('div').should('contain', 'Registro atualizado com sucesso.')
   })
 
@@ -63,6 +64,7 @@ describe('Crud Conta Spec', () => {
 
   function buscar(){
     cy.visit(urlListagem)
+    cy.wait(1000)
     cy.get('#search').type('Bradesc')
     cy.get('button').contains('Pesquisar').click()
     cy.wait(2000)

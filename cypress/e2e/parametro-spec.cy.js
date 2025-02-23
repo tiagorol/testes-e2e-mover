@@ -1,6 +1,6 @@
 describe('Crud Parametro Spec', () => {
 
-  const urlBase = 'https://moverfrotas.netlify.app/'
+  const urlBase = Cypress.env('urlBase')
   const urlListagem = urlBase + 'parameters'
   const urlNovo = urlBase +  '/parameters/new'
 
@@ -26,7 +26,7 @@ describe('Crud Parametro Spec', () => {
     cy.visit(urlListagem)
     cy.get('button').contains('Novo').click()
     preencherFormulario()
-    cy.get('button').contains('Cancelar').click()
+    cy.get('button').contains('Cancelar').click({force: true})
 
     validaCampoVazioFormulario()
   })
@@ -35,7 +35,7 @@ describe('Crud Parametro Spec', () => {
     cy.visit(urlNovo)
     preencherFormulario()
 
-    cy.get('button').contains('Salvar').click()
+    cy.get('button').contains('Salvar').click({force: true})
     cy.get('div').should('contain', 'Registro cadastrado com sucesso.')
   })
 

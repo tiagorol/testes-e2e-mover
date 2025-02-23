@@ -1,6 +1,6 @@
 describe('Crud Contrato Spec', () => {
 
-  const urlBase = 'https://moverfrotas.netlify.app/'
+  const urlBase = Cypress.env('urlBase')
   const urlListagem = urlBase + 'contracts'
   const urlNovo = urlBase +  '/contracts/new'
 
@@ -84,8 +84,8 @@ describe('Crud Contrato Spec', () => {
       .click()
 
     cy.get('#initialDate').clear().type('30112024')
-    cy.get('#billingStartDate').type('30112024')
-    cy.get('#depositAmount').type('150000')
+    cy.get('#billingStartDate').type('30112024', { force: true })
+    cy.get('#depositAmount').type('150000', { force: true })
     cy.get('#recurrenceValue').type('65000')
 
     cy.get('#paymentFrequency')

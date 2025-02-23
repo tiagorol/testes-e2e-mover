@@ -24,7 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-const urlLogin = 'https://moverfrotas.netlify.app/login'
+const urlBase = Cypress.env('urlBase')
+const urlLogin = urlBase + 'login'
 
 Cypress.Commands.add('login', ()=> {
     cy.visit(urlLogin)
